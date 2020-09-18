@@ -25,8 +25,8 @@
 
         <td>
 
-          <button :id="'button_update_' + index" v-show="!buttonSaveIsAble" @click="showButtonSave()">Update</button>
-          <button :id="'button_save_' + index" v-show="buttonSaveIsAble" @click="updateEmployee()">Save</button>
+          <button :id="'button_update_' + index" @click="showButtonSave()">Update</button>
+          <button :id="'button_save_' + index" @click="updateEmployee()">Save</button>
           <button :id="'button_remove_' + index" @click="removeEmployee(index)">Remove</button>
 
         </td>
@@ -45,16 +45,21 @@ const invertBooleanValue = function (data) {
   return !data;
 }
 
-const employees = [];
-employees.push( { name: 'Will_1', phoneNumber: '9 9999-1111', email: 'will@will.com', sector: 'DEV' })
-employees.push( { name: 'Will_2', phoneNumber: '9 9999-1111', email: 'will@will.com', sector: null })
-employees.push( { name: 'Will_3', phoneNumber: null, email: 'will@will.com', sector: 'DEV' })
-
-
 export default {
   name: 'app',
 
+  created () {
+    this.populateEmployees();
+  },
+
   methods: {
+
+    populateEmployees: function() {
+      this.employees.push( { name: 'Will_1', phoneNumber: '9 9999-1111', email: 'will@will.com', sector: 'DEV' })
+      this.employees.push( { name: 'Will_2', phoneNumber: '9 9999-1111', email: 'will@will.com', sector: null })
+      this.employees.push( { name: 'Will_3', phoneNumber: null, email: 'will@will.com', sector: 'DEV' })
+    },
+
     removeEmployee: function (index) {
       this.$delete (this.employees, index)
     },
@@ -69,8 +74,7 @@ export default {
 
   data () {
     return {
-      buttonSaveIsAble: false,
-      employees,
+      employees: [],
     }
   }
 
